@@ -45,7 +45,7 @@ public class GitHubProvider {
             Response response = client.newCall(request).execute();
             String string = response.body().string();
             return JSON.parseObject(string, GitHubUser.class);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -6,8 +6,10 @@ package life.tain.community.dto;
  */
 public class GitHubUser {
 
-    private String name;
     private Long id;
+
+    private String name;
+
     private String bio;
 
     public String getName() {
