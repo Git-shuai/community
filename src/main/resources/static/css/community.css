@@ -1,0 +1,17 @@
+
+/*背景图片*/
+.body {
+    background: url("../image/bg.jpg") repeat;
+}
+/*内容区域*/
+.main {
+    margin: 35px 70px;
+    background-color: #f8f8f8;
+}
+
+/*发布按钮*/
+.btn-publish {
+    margin-bottom: 15px;
+    float: right;
+}
+
