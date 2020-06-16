@@ -1,13 +1,14 @@
-package life.tain.community.model;
+package life.tain.community.dto;
 
+import life.tain.community.model.User;
 import lombok.Data;
 
 /**
  * @author tian
- * @date 2020/6/15
+ * @date 2020/6/16
  */
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -18,6 +19,5 @@ public class Question {
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
-
-
+    private User user;
 }

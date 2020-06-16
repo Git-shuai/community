@@ -14,4 +14,14 @@
     margin-bottom: 15px;
     float: right;
 }
+/*图片大小*/
+.img-size-g{
+    width: 70px;
+    height: 70px;
+}
 
+.text-color-999 {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

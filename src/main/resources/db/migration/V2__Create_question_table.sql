@@ -3,7 +3,7 @@ create table question
 	id int auto_increment,
 	title varchar(50) null,
 	description text null,
-	gmt_creat bigint null,
+	gmt_create bigint null,
 	gmt_modified bigint null,
 	creator int null,
 	comment_count int default 0 null,

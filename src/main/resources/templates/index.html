@@ -3,8 +3,10 @@
 <head>
     <title>God社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" />
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css" th:href="@{/css/bootstrap-theme.min.css}" />
+    <link rel="stylesheet" href="../static/css/community.css" th:href="@{/css/community.css}" />
+
     <script src="@{js/bootstrap.min.js}" type="application/javascript"></script>
 </head>
 <body>
@@ -15,7 +17,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">God社区</span>
             </button>
-            <a class="navbar-brand" href="#">God社区</a>
+            <a class="navbar-brand" href="/">God社区</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -29,7 +31,11 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li th:if="${session.user == null}"> <a href="https://github.com/login/oauth/authorize?client_id=Iv1.160de4e8641db070&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a></li>
+                <li th:if="${session.user != null}">
+                    <a href="/publish">发布</a>
+                </li>
                 <li class="dropdown" th:if="${session.user != null}">
+
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false" th:text="${session.user.getName()}"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -42,5 +48,35 @@
         </div>
     </div>
 </nav>
+
+
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span>  发现</h3>
+            <hr>
+
+            <div class="media" th:each="question : ${questionList}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded img-size-g"
+                             th:src="${question.user.avatarUrl}"
+                             src="https://iph.href.lu/60x60?text=%E5%A4%B4&fg=666666&bg=cccccc"  alt="">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <span th:text="${question.description}"></span> <br>
+                    <span class="text-color-999"><span th:text="${question.commentCount}"></span> 个回复 <span th:text="${question.viewCount}"></span> 次游览 <span th:text="${#dates.format(question.gmtModified,'yyyy-MM dd')}"></span></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h3> 热门话题</h3>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>
