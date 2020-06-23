@@ -1,34 +1,21 @@
-# 学习码匠社区
+package life.tain.community.interceptor;
 
-### 资料
+import life.tain.community.mapper.UserMapper;
+import life.tain.community.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
-### 集成github 登录功能
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-[github 登录](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
-
-
-# 拦截器
-
-## WebConfig
-
-```java
-@Configuration
-public class WebConfig implements WebMvcConfigurer {
-
-    @Autowired
-    private SessionInterceptor sessionInterceptor;
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
-
-    }
-}
-```
-
-## SessionInterceptor 拦截器功能
-
-```java
+/**
+ * @author tian
+ * @date 2020/6/23
+ */
 @Component
 public class SessionInterceptor implements HandlerInterceptor {
 
@@ -62,6 +49,3 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     }
 }
-```
-
-
