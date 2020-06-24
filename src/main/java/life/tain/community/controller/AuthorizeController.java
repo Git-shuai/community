@@ -2,7 +2,6 @@ package life.tain.community.controller;
 
 import life.tain.community.dto.AccessTokenDTO;
 import life.tain.community.dto.GitHubUser;
-import life.tain.community.mapper.UserMapper;
 import life.tain.community.model.User;
 import life.tain.community.provider.GitHubProvider;
 import life.tain.community.service.UserService;
