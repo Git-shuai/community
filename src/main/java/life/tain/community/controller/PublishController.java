@@ -1,7 +1,6 @@
 package life.tain.community.controller;
 
 import life.tain.community.dto.QuestionDTO;
-import life.tain.community.mapper.QuestionMapper;
 import life.tain.community.model.Question;
 import life.tain.community.model.User;
 import life.tain.community.service.QuestionService;

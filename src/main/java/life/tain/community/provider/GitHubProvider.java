@@ -49,21 +49,6 @@ public class GitHubProvider {
         return null;
 
 
-//        OkHttpClient client = new OkHttpClient();
-//        String run;{
-//        Request request = new Request.Builder()
-//                .url("https://api.github.com/user")
-//                .header("Authorization", "token " + accessToken)
-//                .build();
-//
-//            try (Response response = client.newCall(request).execute()) {
-//                String string = response.body().string();
-//                GitHubUser gitHubUser = JSON.parseObject(string, GitHubUser.class);
-//                return gitHubUser;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
 
