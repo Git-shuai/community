@@ -27,7 +27,7 @@
 
 
 
-            <a th:href="@{'/publish/'+${question.id}}" class="community-menu">
+            <a th:href="@{'/publish/'+${question.id}}" class="community-menu" th:if="${session.user!=null && session.user.id ==question.creator}">
                 <span class="glyphicon glyphicon-pencil"></span>
                 编辑
             </a>

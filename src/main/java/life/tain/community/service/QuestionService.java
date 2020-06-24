@@ -36,6 +36,7 @@ public class QuestionService {
 
         List<Question> list = questionMapper.list(offset,size);
         List<QuestionDTO> questionDTOList=new ArrayList<>();
+
         PaginationDTO paginationDTO=new PaginationDTO();
         for (Question question : list) {
             User user=userMapper.findById(question.getCreator());

@@ -37,21 +37,45 @@ public class GitHubProvider {
 
 
     public GitHubUser getUser(String accessToken) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://api.github.com/user")
-                .header("Authorization","token "+accessToken)
-                .build();
-
+        String url="https://api.github.com/user";
         try {
-            Response response = client.newCall(request).execute();
-            System.out.println(response);
-            String string = response.body().string();
+            String string = run(url, accessToken);
+
             GitHubUser gitHubUser = JSON.parseObject(string, GitHubUser.class);
-            return gitHubUser;
+                return gitHubUser;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+
+
+//        OkHttpClient client = new OkHttpClient();
+//        String run;{
+//        Request request = new Request.Builder()
+//                .url("https://api.github.com/user")
+//                .header("Authorization", "token " + accessToken)
+//                .build();
+//
+//            try (Response response = client.newCall(request).execute()) {
+//                String string = response.body().string();
+//                GitHubUser gitHubUser = JSON.parseObject(string, GitHubUser.class);
+//                return gitHubUser;
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+    }
+
+
+    OkHttpClient client = new OkHttpClient();
+    String run(String url,String accessToken) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Authorization", "token " + accessToken)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
     }
 }
