@@ -2,6 +2,9 @@ package life.tain.community.service;
 
 import life.tain.community.dto.PaginationDTO;
 import life.tain.community.dto.QuestionDTO;
+import life.tain.community.exception.CustomizeErrorCode;
+import life.tain.community.exception.CustomizeException;
+import life.tain.community.mapper.QuestionExtMapper;
 import life.tain.community.mapper.QuestionMapper;
 import life.tain.community.mapper.UserMapper;
 import life.tain.community.model.Question;
@@ -25,6 +28,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -94,6 +100,10 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+
+        if(question==null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         UserExample example = new UserExample();
@@ -123,7 +133,14 @@ public class QuestionService {
             QuestionExample example = new QuestionExample();
             example.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, example);
+            int update = questionMapper.updateByExampleSelective(updateQuestion, example);
+            if(update!=1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
+    }
+
+    public void incView(Integer id) {
+        questionExtMapper.incView(id);
     }
 }
