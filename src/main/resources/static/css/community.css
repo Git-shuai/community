@@ -1,12 +1,12 @@
 
 /*背景图片*/
-.body {
-    background: url("../image/bg.jpg") repeat;
+body {
+    background: url("../img/bg.jpg") repeat;
 }
 /*内容区域*/
 .main {
     margin: 35px 70px;
-    background-color: #f8f8f8;
+    background-color: #fff;
 }
 
 /*发布按钮*/
@@ -31,9 +31,102 @@
 
 .community-menu {
     color: #999;
+    display: inline-block;
+    font-size: 13px;
+    margin-bottom: 15px;
+    margin-right: 10px;
 }
 .jumbotron {
     margin: 60px 0 0 200px;
 
     background-color: #ffffff;
+}
+.comment {
+    margin: 10px 0;
+}
+
+.btn-comment{
+    margin-top: 10px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.comment-sp {
+    margin-top: 0;
+
+}
+
+
+.question-tag {
+    margin-right: 5px;
+}
+
+.question1-tag {
+    white-space: normal;
+    margin: 8px;
+    display: inline-block;
+}
+
+.icon-menu {
+    color: #999;
+    margin-top: 5px;
+}
+
+.icon-menu .icon {
+    margin-right: 6px;
+    font-size: 18px;
+    cursor: pointer;   //鼠标变成手的形状
+
+}
+
+.icon-menu .active {
+  color: #499ef3;
+}
+.icon-menu .icon:hover {
+    color: #499ef3;
+}
+
+.media-border {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.text-title {
+    border-bottom: 1px solid #eee;
+    color: #337ab7;
+}
+
+.title-question {
+    margin-top: 35px;
+}
+
+.sub-comments {
+    border-radius: 5px;
+    margin-top: 15px;
+    border: 1px solid #eee;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+
+.comment-count {
+    margin: -10px 0 0 -15px;
+}
+
+.question-related {
+    line-height: 20px;
+    font-size: 13px;
+    margin-left: 0;
+    list-style: none;
+    padding-left: 0;
+}
+.publish-tag {
+    border-radius: 5px;
+    margin-top: 15px;
+    border: 1px solid #eee;
+}
+
+.publish-tag-tab {
+    display: none;
+
 }

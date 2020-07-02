@@ -15,32 +15,26 @@ import java.io.IOException;
 @Component
 public class GitHubProvider {
     public String getAccessToken(AccessTokenDTO accessTokenDTO) {
-        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 
-        OkHttpClient client = new OkHttpClient();
-
-        RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));
-        Request request = new Request.Builder()
-                .url("https://github.com/login/oauth/access_token")
-                .post(body)
-                .build();
+        String url = "https://github.com/login/oauth/access_token";
         try {
-            try (Response response = client.newCall(request).execute()) {
-                String string = response.body().string();
-                return string.split("&")[0].split("=")[1];
-            }
+            String s = post(url, accessTokenDTO);
+
+            System.out.println(s);
+            System.out.println(s.split("&")[0].split("=")[1]);
+            return s.split("&")[0].split("=")[1];
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+
     }
 
 
     public GitHubUser getUser(String accessToken) {
-        String url="https://api.github.com/user";
+        String url = "https://api.github.com/user";
         try {
             String string = run(url, accessToken);
-
             return JSON.parseObject(string, GitHubUser.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,15 +45,32 @@ public class GitHubProvider {
     }
 
 
-    OkHttpClient client = new OkHttpClient();
-    String run(String url,String accessToken) throws IOException {
+    public static final MediaType MEDIA_TYPE
+            = MediaType.get("application/json; charset=utf-8");
+
+
+    String post(String url, AccessTokenDTO json) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSON.toJSONString(json), MEDIA_TYPE);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+
+
+    String run(String url, String accessToken) throws IOException {
+        OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
                 .header("Authorization", "token " + accessToken)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            assert response.body() != null;
             return response.body().string();
         }
     }

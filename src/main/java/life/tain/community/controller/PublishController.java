@@ -1,5 +1,6 @@
 package life.tain.community.controller;
 
+import life.tain.community.cache.TagCache;
 import life.tain.community.dto.QuestionDTO;
 import life.tain.community.model.Question;
 import life.tain.community.model.User;
@@ -26,7 +27,7 @@ public class PublishController {
     private QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable("id") Integer id,
+    public String edit(@PathVariable("id") Long id,
                        Model model){
 
         QuestionDTO question = questionService.getById(id);
@@ -35,12 +36,14 @@ public class PublishController {
         model.addAttribute("description",question.getDescription());
         model.addAttribute("tag",question.getTag());
         model.addAttribute("id",question.getId());
+        model.addAttribute("tags",TagCache.getTag());
         return "publish";
     }
 
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tags",TagCache.getTag());
         return "publish";
     }
 
@@ -50,13 +53,14 @@ public class PublishController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("tag") String tag,
-            @RequestParam("id") Integer id,
+            @RequestParam("id") Long id,
             HttpServletRequest request,
             Model model){
 
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags",TagCache.getTag());
 
         if(title ==null || "".equals(title)){
             model.addAttribute("error","标题不能为空");

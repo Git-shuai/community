@@ -15,9 +15,11 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author tian
@@ -43,7 +45,9 @@ public class QuestionService {
         }
         Integer offset = size * (page - 1);
 
-        List<Question> list = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
+        List<Question> list = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -64,7 +68,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO listByUserId(Integer userId, Integer page, Integer size) {
+    public PaginationDTO listByUserId(Long userId, Integer page, Integer size) {
         if (page < 1) {
             page = 1;
         }
@@ -74,6 +78,7 @@ public class QuestionService {
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria()
                 .andCreatorEqualTo(userId);
+        questionExample.setOrderByClause("gmt_create desc");
         List<Question> list = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -98,7 +103,7 @@ public class QuestionService {
 
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
 
         if(question==null){
@@ -140,7 +145,26 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
         questionExtMapper.incView(id);
+    }
+
+
+    public List<QuestionDTO> selectRelated(QuestionDTO queryDTO) {
+
+        String regexpTag = StringUtils.replace(queryDTO.getTag(), ",", "|");
+
+        Question question = new Question();
+        question.setId(queryDTO.getId());
+        question.setTag(regexpTag);
+
+        List<Question> questionList = questionExtMapper.selectRelated(question);
+
+        return questionList.stream().map(q -> {
+
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(q,questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
     }
 }

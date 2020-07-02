@@ -9,6 +9,16 @@
     <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
     <script  th:src="@{/js/bootstrap.min.js}" type="application/javascript"></script>
 </head>
+<script type="application/javascript">
+ window.onload=function () {
+    let closable = window.localStorage.getItem("closable");
+    if(closable){
+        window.close();
+        window.localStorage.removeItem("closable");
+    }
+
+ }
+</script>
 <body>
 
 <div th:insert="~{navigation :: nav}"></div>
@@ -30,7 +40,8 @@
                     <h4 class="media-heading">
                         <a href="" th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.description}"></span> <br>
+                    <span th:if="${question.description.length()>100}" th:text="${question.description.substring(0,100)}"></span>
+                    <span th:if="${question.description.length()<100}" th:text="${question.description}"></span> <br>
                     <span class="text-color-999"><span th:text="${question.commentCount}"></span> 个回复 <span th:text="${question.viewCount}"></span> 次游览 <span th:text="${#dates.format(question.gmtModified,'yyyy-MM dd')}"></span></span>
                 </div>
             </div>
