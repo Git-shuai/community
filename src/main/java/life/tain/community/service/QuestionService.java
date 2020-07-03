@@ -38,7 +38,12 @@ public class QuestionService {
     private UserMapper userMapper;
 
 
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search,Integer page, Integer size) {
+
+        if (!StringUtils.isEmpty(search)){
+            search = StringUtils.replace(search, " ", "|");
+        }
+
 
         if (page < 1) {
             page = 1;

@@ -5,6 +5,7 @@ import life.tain.community.dto.GitHubUser;
 import life.tain.community.model.User;
 import life.tain.community.provider.GitHubProvider;
 import life.tain.community.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * @date 2020/6/10
  */
 @Controller
+@Slf4j
 public class AuthorizeController {
 
     @Autowired
@@ -68,6 +70,7 @@ public class AuthorizeController {
             response.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
+            log.error("callback git github error {}",gitHubUser);
             return "redirect:/";
         }
 
