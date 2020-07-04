@@ -2,7 +2,6 @@ package life.tain.community.cache;
 
 import life.tain.community.dto.TagDTO;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
