@@ -1,7 +1,6 @@
 package life.tain.community.controller;
 
 import life.tain.community.dto.PaginationDTO;
-import life.tain.community.model.Notification;
 import life.tain.community.model.User;
 import life.tain.community.service.NotificationService;
 import life.tain.community.service.QuestionService;
